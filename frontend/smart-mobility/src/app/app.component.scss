@@ -2,12 +2,11 @@
 
 .nav{
   display: flex;
-  justify-content: left;
 
   background-color: $lightgrey;
   top: 0;
   left: 0;
-  height: 5rem;
+  height: 60px;
   width: 100vw;
   position: fixed;
   z-index: 999;
@@ -16,19 +15,33 @@
     justify-content: center;
     text-align: center;
     padding-left: 1.8rem;
-    padding-top: 1rem;
+    cursor: pointer;
+    border-bottom: rgba(0,0,0,0) 3px solid;
+    transition: border-bottom .1s linear;
 
     .nav-item{
-      float: left;
-      width: 60px;
-      height: 60px;
-      .nav-caption{
-        font-weight: normal;
 
+      padding: 1rem;
+      width: 80px;
+      height: 60px;
+
+      &.active {
+        background-color: white;
+        border-bottom: 3px solid $orange;
+
+        &:hover {
+          border-bottom: 3px solid $orange;
+        }
+      }
+
+      &:hover {
+        border-bottom: 3px solid grey;
+        transition: border-bottom .1s linear;
       }
     }
   }
 }
+
 
 .content {
   font-family: $font;
