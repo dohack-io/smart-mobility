@@ -1,24 +1,33 @@
-<div class="nav">
-
-</div>
 
 <div class="content">
   <div class="left">
     <div class="search-content">
+
+      <h2>Verbindungssuche</h2>
       <label>
         <input type="text" class="form-control input-field user-input input-text" name="Start"
                placeholder="Start" required [(ngModel)]="start">
       </label>
+      <div></div>
       <label>
         <input type="text" class="form-control input-field user-input input-text" name="Destination"
                placeholder="Ziel" required [(ngModel)]="destination">
       </label>
+      <div></div>
       <label>
         <input type="date" class="form-control input-field user-input input-text" [(ngModel)]="date">
+      </label>
+      <label>
+        <input type="time" class="form-control input-field user-input input-text" [(ngModel)]="time">
+      </label>
+      <div></div>
+      <label>
+        <button class="btn btn-primary button" (click)="onSearch()">Verbindung suchen</button>
       </label>
     </div>
   </div>
   <div class="right">
-
+    <img class="background-image" src="../../assets/background.jpg" alt="background image" *ngIf="!requested">
+    <router-outlet></router-outlet>
   </div>
 </div>

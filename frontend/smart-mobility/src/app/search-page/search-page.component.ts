@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Time} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-search-page',
@@ -10,11 +12,17 @@ export class SearchPageComponent implements OnInit {
   start = '';
   destination = '';
   date: Date;
+  time: Time;
+  requested: boolean;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
-
+      this.requested = false;
   }
 
+  onSearch() {
+    this.requested = true;
+    this.router.navigateByUrl('/connection');
+  }
 }
