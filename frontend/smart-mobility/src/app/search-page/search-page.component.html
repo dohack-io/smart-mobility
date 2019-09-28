@@ -13,11 +13,13 @@
                placeholder="Ziel" required [(ngModel)]="destination">
       </label>
       <div></div>
-      <mat-form-field>
-        <label>
-          <input matInput type="datetime-local" placeholder="start date" [(ngModel)]="date">
-        </label>
-      </mat-form-field>
+      <label>
+        <input type="date" class="form-control input-field user-input input-text" [(ngModel)]="date">
+      </label>
+      <div></div>
+      <label>
+        <input type="time" class="form-control input-field user-input input-text" [(ngModel)]="time">
+      </label>
       <div></div>
       <label>
         <button class="btn btn-primary button" (click)="onSearch()">Verbindung suchen</button>

@@ -4,6 +4,7 @@ import {environment} from '../../environments/environment';
 import {TripResult} from '../entities/TripResult';
 import {Trip} from '../entities/Trip';
 import {TravelConnection} from '../entities/travelConnection';
+import {Request} from '../entities/Request';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,20 @@ export class SearchService {
 
   }
 
-  search(start: string, destination: string, date: Date) {
+  search(start: string, destination: string, date: Date, travelType: string) {
 
-    const data = {
-      start,
-      destination,
-      date
-    };
+    const data: Request = {
+      from: {
+        locationType: 'ADDRESS',
+        location: start
+      },
+      to: {
+        locationType: 'ADDRESS',
+        location: destination
+      },
+      date,
+      travelType
+  };
 
     const travel: TravelConnection = new TravelConnection();
 

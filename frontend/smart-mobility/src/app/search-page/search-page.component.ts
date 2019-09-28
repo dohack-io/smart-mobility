@@ -26,7 +26,9 @@ export class SearchPageComponent implements OnInit {
   onSearch() {
     this.requested = true;
 
-    this.search.search(this.start, this.destination, this.date);
+    const searchDate = new Date(this.date.toDateString() + ' ' + this.time);
+
+    this.search.search(this.start, this.destination, searchDate, 'DEPARTURE');
     this.router.navigateByUrl('/connection');
 
   }
