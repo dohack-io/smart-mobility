@@ -1,0 +1,3 @@
+[submodule "backend/public-transport-service"]
+	path = backend/public-transport-service
+	url = https://gitlab.com/oeffi/public-transport-service
