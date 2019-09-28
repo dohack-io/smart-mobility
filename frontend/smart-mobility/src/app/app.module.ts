@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatExpansionModule} from '@angular/material';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,6 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     BrowserAnimationsModule,
     MatExpansionModule,
     FontAwesomeModule
-
   ],
   providers: [],
   bootstrap: [AppComponent],
