@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {MatExpansionModule} from '@angular/material';
+import {Connection} from '../entities/Connection';
+import {ConnectionService} from '../service/connection.service';
+import {Step} from '../entities/Step';
 
 @Component({
   selector: 'app-connection',
@@ -7,9 +11,94 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConnectionComponent implements OnInit {
 
-  constructor() { }
+  connections: Connection[];
+
+  constructor(private connect: ConnectionService) {
+  }
 
   ngOnInit() {
+
+    const con: Connection[] = [
+      {
+        Route: [new Step()],
+        provider: 'vrr',
+        duration: '30',
+        start: '14:23',
+        arrival: '15:34',
+        price: 5.4,
+        steps: 0
+      },
+      {
+        Route: [new Step()],
+        provider: 'vrr',
+        duration: '30',
+        start: '14:23',
+        arrival: '15:34',
+        price: 5.4,
+        steps: 0
+      },
+      {
+        Route: [new Step()],
+        provider: 'vrr',
+        duration: '30',
+        start: '14:23',
+        arrival: '15:34',
+        price: 5.4,
+        steps: 0
+      }, {
+        Route: [new Step()],
+        provider: 'vrr',
+        duration: '30',
+        start: '14:23',
+        arrival: '15:34',
+        price: 5.4,
+        steps: 0
+      }, {
+        Route: [new Step()],
+        provider: 'vrr',
+        duration: '30',
+        start: '14:23',
+        arrival: '15:34',
+        price: 5.4,
+        steps: 0
+      },
+      {
+        Route: [new Step()],
+        provider: 'vrr',
+        duration: '30',
+        start: '14:23',
+        arrival: '15:34',
+        price: 5.4,
+        steps: 0
+      }, {
+        Route: [new Step()],
+        provider: 'vrr',
+        duration: '30',
+        start: '14:23',
+        arrival: '15:34',
+        price: 5.4,
+        steps: 0
+      },
+      {
+        Route: [new Step()],
+        provider: 'vrr',
+        duration: '30',
+        start: '14:23',
+        arrival: '15:34',
+        price: 5.4,
+        steps: 0
+      },
+      {
+        Route: [new Step()],
+        provider: 'vrr',
+        duration: '30',
+        start: '14:23',
+        arrival: '15:34',
+        price: 5.4,
+        steps: 0
+      },
+    ];
+    this.connections = con;
   }
 
 }
