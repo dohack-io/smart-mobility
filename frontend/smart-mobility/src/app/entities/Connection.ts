@@ -1,24 +1,8 @@
 import {Time} from '@angular/common';
+import {Step} from './Step';
 
 export class Connection {
-  Route: Steps [{
-    price: number,
-    duration: Time;
-    start: string;
-    destination: string,
-    type: string,
-    details: {
-      vrr?: {
-        busnumber: number,
-        direction: string,
-        // ...
-      }
-      circ?: {
-        distance: number;
-        battery: number;
-      }
-    }
-  }];
+  Route: [Step];
   provider: string;
   duration: string;
   price: number;
