@@ -1,0 +1,48 @@
+@import "../../variables";
+
+.content {
+  height: 100vh;
+  margin-top: 5rem;
+  display: flex;
+
+  .left {
+    padding-top: 1rem;
+    width: 30vw;
+    padding-bottom: 2rem;
+    //box-shadow: 0 4px 7px -5px rgba(0, 0, 0, 0.16);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.16);
+    height: 100vh;
+
+    .search-content {
+      text-align: center;
+      font-size: 1.2rem;
+
+      label {
+        width: 100%;
+        padding: 0 1rem;
+      }
+
+      input {
+        width: 100%;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+      }
+
+      .button {
+        width: 100%;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .right {
+    width: 69vw;
+    .background-image {
+      width: 100vw;
+      height: 100vh;
+    }
+  }
+}
