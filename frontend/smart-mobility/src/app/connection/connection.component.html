@@ -1,33 +1,33 @@
 <div class="content">
-  <div *ngFor="let co of connections, let i = index ">
+  <div *ngFor="let trip of trips, let i = index ">
     <div class="panel">
-      <div class="click" (click)="onItem(co,i)">
+      <div class="click" (click)="onItem(trip,i)">
         <fa-icon [icon]="arrowRight" *ngIf="!isSelected || isSelectedIndex !== i"></fa-icon>
         <fa-icon [icon]="arrowDown" *ngIf="isSelected && isSelectedIndex === i"></fa-icon>
       </div>
-      <div class="click" (click)="onItem(co,i)">
+      <div class="click" (click)="onItem(trip,i)">
         <label class="abfahrt">
-          {{co.abfahrt}}
+          {{trip.abfahrt}}
         </label>
       </div>
-      <div class="click" (click)="onItem(co,i)">
+      <div class="click" (click)="onItem(trip,i)">
         <label class="ankunft">
-          {{co.ankunft}}
+          {{trip.ankunft}}
         </label>
       </div>
-      <div class="click" (click)="onItem(co,i)">
+      <div class="click" (click)="onItem(trip,i)">
         <label class="duration">
-          {{co.duration}}
+          {{trip.duration}}
         </label>
       </div>
-      <div class="click" (click)="onItem(co,i)">
+      <div class="click" (click)="onItem(trip,i)">
         <label class="network">
-          {{co.network}}
+          {{trip.network}}
         </label>
       </div>
-      <div class="click" (click)="onItem(co,i)">
+      <div class="click" (click)="onItem(trip,i)">
         <label class="price">
-          {{co.price | currency:' '}} €
+          {{trip.price | currency:' '}} €
         </label>
       </div>
     </div>

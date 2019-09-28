@@ -1,11 +1,11 @@
 export class Request {
   from: {
     locationType: string,
-    location: string
+    location: string,
   };
   to: {
     locationType: string,
-    location: string
+    location: string,
   };
   date: Date;
   travelType: string;

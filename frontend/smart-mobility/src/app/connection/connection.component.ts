@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {MatExpansionModule} from '@angular/material';
-import {Connection} from '../entities/Connection';
 import {ConnectionService} from '../service/connection.service';
-import {Step} from '../entities/Step';
+import {TripResult} from '../entities/TripResult';
 import {Trip} from '../entities/Trip';
 import {faChevronDown, faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import {Leg} from '../entities/Leg';
 
 @Component({
   selector: 'app-connection',
@@ -12,8 +11,8 @@ import {faChevronDown, faChevronRight} from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./connection.component.scss']
 })
 export class ConnectionComponent implements OnInit {
-
-  connections: Trip[];
+  tripResult: TripResult;
+  trips: Trip[];
   arrowRight = faChevronRight;
   arrowDown = faChevronDown;
 
@@ -27,65 +26,6 @@ export class ConnectionComponent implements OnInit {
 
   ngOnInit() {
 
-    const con: Trip[] = [
-      {
-        route: [new Step()],
-        abfahrt: new Date().toLocaleTimeString(),
-        ankunft: new Date().toLocaleTimeString(),
-        duration: 5,
-        network: 'vrr',
-        price: 5.4,
-      },
-      {
-        route: [new Step()],
-        abfahrt: new Date().toLocaleTimeString(),
-        ankunft: new Date().toLocaleTimeString(),
-        duration: 5,
-        network: 'vrr',
-        price: 5.4,
-      },
-      {
-        route: [new Step()],
-        abfahrt: new Date().toLocaleTimeString(),
-        ankunft: new Date().toLocaleTimeString(),
-        duration: 5,
-        network: 'vrr',
-        price: 5.4,
-      },
-      {
-        route: [new Step()],
-        abfahrt: new Date().toLocaleTimeString(),
-        ankunft: new Date().toLocaleTimeString(),
-        duration: 5,
-        network: 'vrr',
-        price: 5.4,
-      },
-      {
-        route: [new Step()],
-        abfahrt: new Date().toLocaleTimeString(),
-        ankunft: new Date().toLocaleTimeString(),
-        duration: 5,
-        network: 'vrr',
-        price: 5.4,
-      },
-      {
-        route: [new Step()],
-        abfahrt: new Date().toLocaleTimeString(),
-        ankunft: new Date().toLocaleTimeString(),
-        duration: 5,
-        network: 'vrr',
-        price: 5.4,
-      },
-      {
-        route: [new Step()],
-        abfahrt: new Date().toLocaleTimeString(),
-        ankunft: new Date().toLocaleTimeString(),
-        duration: 5,
-        network: 'vrr',
-        price: 5.4,
-      },
-    ];
-    this.connections = con;
   }
 
   onItem(entry: Trip, index: number) {
