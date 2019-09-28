@@ -1,36 +1,34 @@
 <div class="content">
   <div *ngFor="let co of connections, let i = index ">
-    <mat-accordion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-description class="description">
-            <div class="mat-header">
-              <label class="abfahrt">
-                {{co.start}}
-              </label>
-              <label class="ankunft">
-                {{co.arrival}}
-              </label>
-              <label class="duration">
-                {{co.duration}}
-              </label>
-              <label class="umstiege">
-                {{co.steps}}
-              </label>
-              <label class="icons">
-                <label>icon</label>
-              </label>
-              <label class="price">
-                {{co.price}}
-              </label>
-            </div>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
+    <div class="panel">
+      <div class="click" (click)="onItem(i)">
 
-
-      </mat-expansion-panel>
-    </mat-accordion-panel>
+      </div>
+      <div class="click" (click)="onItem(i)">
+        <label class="abfahrt">
+          {{co.abfahrt}}
+        </label>
+      </div>
+      <div class="click" (click)="onItem(i)">
+        <label class="ankunft">
+          {{co.ankunft}}
+        </label>
+      </div>
+      <div class="click" (click)="onItem(i)">
+        <label class="duration">
+          {{co.duration}}
+        </label>
+      </div>
+      <div class="click" (click)="onItem(i)">
+        <label class="network">
+          {{co.network}}
+        </label>
+      </div>
+      <div class="click" (click)="onItem(i)">
+        <label class="price">
+          {{co.price | currency:' '}} €
+        </label>
+      </div>
+    </div>
   </div>
-
-
 </div>

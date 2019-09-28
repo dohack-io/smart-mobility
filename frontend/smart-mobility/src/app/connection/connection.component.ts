@@ -3,6 +3,7 @@ import {MatExpansionModule} from '@angular/material';
 import {Connection} from '../entities/Connection';
 import {ConnectionService} from '../service/connection.service';
 import {Step} from '../entities/Step';
+import {Trip} from '../entities/Trip';
 
 @Component({
   selector: 'app-connection',
@@ -11,94 +12,75 @@ import {Step} from '../entities/Step';
 })
 export class ConnectionComponent implements OnInit {
 
-  connections: Connection[];
+  connections: Trip[];
 
   constructor(private connect: ConnectionService) {
   }
 
   ngOnInit() {
 
-    const con: Connection[] = [
+    const con: Trip[] = [
       {
-        Route: [new Step()],
-        provider: 'vrr',
-        duration: '30',
-        start: '14:23',
-        arrival: '15:34',
+        route: [new Step()],
+        abfahrt: new Date().toLocaleTimeString(),
+        ankunft: new Date().toLocaleTimeString(),
+        duration: 5,
+        network: 'vrr',
         price: 5.4,
-        steps: 0
       },
       {
-        Route: [new Step()],
-        provider: 'vrr',
-        duration: '30',
-        start: '14:23',
-        arrival: '15:34',
+        route: [new Step()],
+        abfahrt: new Date().toLocaleTimeString(),
+        ankunft: new Date().toLocaleTimeString(),
+        duration: 5,
+        network: 'vrr',
         price: 5.4,
-        steps: 0
       },
       {
-        Route: [new Step()],
-        provider: 'vrr',
-        duration: '30',
-        start: '14:23',
-        arrival: '15:34',
+        route: [new Step()],
+        abfahrt: new Date().toLocaleTimeString(),
+        ankunft: new Date().toLocaleTimeString(),
+        duration: 5,
+        network: 'vrr',
         price: 5.4,
-        steps: 0
-      }, {
-        Route: [new Step()],
-        provider: 'vrr',
-        duration: '30',
-        start: '14:23',
-        arrival: '15:34',
-        price: 5.4,
-        steps: 0
-      }, {
-        Route: [new Step()],
-        provider: 'vrr',
-        duration: '30',
-        start: '14:23',
-        arrival: '15:34',
-        price: 5.4,
-        steps: 0
       },
       {
-        Route: [new Step()],
-        provider: 'vrr',
-        duration: '30',
-        start: '14:23',
-        arrival: '15:34',
+        route: [new Step()],
+        abfahrt: new Date().toLocaleTimeString(),
+        ankunft: new Date().toLocaleTimeString(),
+        duration: 5,
+        network: 'vrr',
         price: 5.4,
-        steps: 0
-      }, {
-        Route: [new Step()],
-        provider: 'vrr',
-        duration: '30',
-        start: '14:23',
-        arrival: '15:34',
-        price: 5.4,
-        steps: 0
       },
       {
-        Route: [new Step()],
-        provider: 'vrr',
-        duration: '30',
-        start: '14:23',
-        arrival: '15:34',
+        route: [new Step()],
+        abfahrt: new Date().toLocaleTimeString(),
+        ankunft: new Date().toLocaleTimeString(),
+        duration: 5,
+        network: 'vrr',
         price: 5.4,
-        steps: 0
       },
       {
-        Route: [new Step()],
-        provider: 'vrr',
-        duration: '30',
-        start: '14:23',
-        arrival: '15:34',
+        route: [new Step()],
+        abfahrt: new Date().toLocaleTimeString(),
+        ankunft: new Date().toLocaleTimeString(),
+        duration: 5,
+        network: 'vrr',
         price: 5.4,
-        steps: 0
+      },
+      {
+        route: [new Step()],
+        abfahrt: new Date().toLocaleTimeString(),
+        ankunft: new Date().toLocaleTimeString(),
+        duration: 5,
+        network: 'vrr',
+        price: 5.4,
       },
     ];
     this.connections = con;
   }
 
+  onItem(i: number) {
+
+  }
 }
