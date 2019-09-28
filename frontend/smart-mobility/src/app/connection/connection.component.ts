@@ -4,6 +4,7 @@ import {Connection} from '../entities/Connection';
 import {ConnectionService} from '../service/connection.service';
 import {Step} from '../entities/Step';
 import {Trip} from '../entities/Trip';
+import {faChevronDown, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-connection',
@@ -13,6 +14,13 @@ import {Trip} from '../entities/Trip';
 export class ConnectionComponent implements OnInit {
 
   connections: Trip[];
+  arrowRight = faChevronRight;
+  arrowDown = faChevronDown;
+
+  isSelectedIndex = -1;
+  isSelected = false;
+
+  selectedRequest: Trip;
 
   constructor(private connect: ConnectionService) {
   }
@@ -80,7 +88,21 @@ export class ConnectionComponent implements OnInit {
     this.connections = con;
   }
 
-  onItem(i: number) {
+  onItem(entry: Trip, index: number) {
+    this.isSelected = !this.isSelected;
+    if (this.isSelected) {
+      this.selectedRequest = entry;
+      this.isSelectedIndex = index;
+    } else {
+      if (this.selectedRequest === entry) {
+        this.selectedRequest = null;
+        this.isSelectedIndex = -1;
+      } else {
+        this.isSelected = !this.isSelected;
+        this.selectedRequest = entry;
+        this.isSelectedIndex = index;
+      }
 
+    }
   }
 }
