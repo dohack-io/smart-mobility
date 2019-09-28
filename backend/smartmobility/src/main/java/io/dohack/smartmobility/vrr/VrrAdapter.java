@@ -3,15 +3,15 @@ package io.dohack.smartmobility.vrr;
 import de.schildbach.pte.VrrProvider;
 import de.schildbach.pte.dto.*;
 import io.dohack.smartmobility.vrr.model.TravelType;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Set;
 
-@Repository
-public class VrrRepository {
+@Component
+public class VrrAdapter {
   private final VrrProvider vrrProvider = new VrrProvider();
 
   public SuggestLocationsResult suggestLocations(

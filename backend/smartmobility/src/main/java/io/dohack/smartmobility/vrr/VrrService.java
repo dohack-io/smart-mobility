@@ -1,9 +1,9 @@
 package io.dohack.smartmobility.vrr;
 
 import de.schildbach.pte.dto.Location;
-import de.schildbach.pte.dto.QueryTripsResult;
 import io.dohack.smartmobility.vrr.model.LocationRequest;
 import io.dohack.smartmobility.vrr.model.TripRequest;
+import io.dohack.smartmobility.vrr.model.TripResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,18 +13,20 @@ import java.util.EnumSet;
 @RequiredArgsConstructor
 public class VrrService {
 
-  private final VrrRepository vrrRepository;
+  private final VrrAdapter vrrAdapter;
 
-  public QueryTripsResult queryTrips(TripRequest tripRequest) {
+  public TripResult queryTrips(TripRequest tripRequest) {
     var fromStation = getLocation(tripRequest.getFrom());
     var toStation = getLocation(tripRequest.getTo());
-    return vrrRepository.queryTrips(
-        fromStation, null, toStation, tripRequest.getDate(), tripRequest.getTravelType(), null);
+    var queryResult =
+        vrrAdapter.queryTrips(
+            fromStation, null, toStation, tripRequest.getDate(), tripRequest.getTravelType(), null);
+    return new TripResult(queryResult);
   }
 
   private Location getLocation(LocationRequest locationRequest) {
     var suggestedLocations =
-        vrrRepository.suggestLocations(
+        vrrAdapter.suggestLocations(
             locationRequest.getLocation(), EnumSet.of(locationRequest.getLocationType()), 0);
     return suggestedLocations.getLocations().get(0);
   }
