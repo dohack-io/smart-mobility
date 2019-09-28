@@ -100,5 +100,4 @@ export class ConnectionComponent implements OnInit {
     ];
     this.connections = con;
   }
-
 }
