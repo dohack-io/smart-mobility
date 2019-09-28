@@ -9,6 +9,7 @@
   position: fixed;
   z-index: 999;
 
+
 }
 
 .content {
@@ -46,3 +47,25 @@
     height: 30px;
   }
 }
+.nav{
+  display: flex;
+  justify-content: left;
+  .nav-list{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-left: 1.8rem;
+    padding-top: 1rem;
+
+    .nav-item{
+      float: left;
+      width: 60px;
+      height: 60px;
+      .nav-caption{
+        font-weight: normal;
+
+      }
+    }
+  }
+  }
+

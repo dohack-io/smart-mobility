@@ -1,24 +1,33 @@
 <div class="nav">
   <div class="nav-list">
-    <div class="navitem logo">
+    <div class="nav-item logo">
       <!--      Logo      -->
     </div>
-    <div class="navitem">
-      <!--      Startseite    -->
+    <div class="nav-item" (click)="onSearch()">
       <fa-icon [icon]="faSearch"></fa-icon>
+      <div></div>
+      <label class="nav-caption">Suche</label>
     </div>
-    <div class="navitem">
-      <div class="navitem">
-        <fa-icon [icon]="faSubway"></fa-icon>    </div>
-      <fa-icon [icon]="faMapMarkedAlt"></fa-icon>    </div>
-
-
+    <div class="nav-item" (click)="onSearch()">
+      <fa-icon [icon]="faSubway"> </fa-icon>
+      <div></div>
+      <label class="nav-caption">Fahrplan</label>
+    </div>
+    <div class="nav-item" (click)="onSearch()">
+      <fa-icon [icon]="faMapMarkedAlt"></fa-icon>
+      <div></div>
+      <label class="nav-caption">Scooter</label>
+    </div>
   </div>
 </div>
 
 <div class="content">
   <app-search-page></app-search-page>
 </div>
+<!--div class="Main">
+ <router-outlet></router-outlet>
+</div-->
+
 <div class="footer">
   <div class="icon-list">
     <div class="item">
@@ -28,5 +37,5 @@
       <img class="icon" src="../assets/circ-logo.png" alt="circ-logo">
     </div>
   </div>
-
+  <router-outlet></router-outlet>
 </div>
