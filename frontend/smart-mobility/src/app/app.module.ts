@@ -8,6 +8,7 @@ import {FormsModule} from '@angular/forms';
 import { ConnectionComponent } from './connection/connection.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatExpansionModule} from '@angular/material';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import {MatExpansionModule} from '@angular/material';
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    FontAwesomeModule
+
   ],
   providers: [],
   bootstrap: [AppComponent],
