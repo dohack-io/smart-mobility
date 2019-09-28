@@ -5,6 +5,8 @@ export class Connection {
   Route: [Step];
   provider: string;
   duration: string;
+  start: string;
+  arrival: string;
   price: number;
-  steps?: number;
+  steps: number;
 }
