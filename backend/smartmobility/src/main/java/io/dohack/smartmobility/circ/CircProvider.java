@@ -22,7 +22,7 @@ public class CircProvider {
     private static final String BUSINESS_AREA_URL = "https://node.integrations.goflash.com/partner/areas/business";
     private static final String NEAREST_AREA_URL = "https://node.integrations.goflash.com/partner/vehicles/nearest";
     private static final String AUTH_URL = "https://node.integrations.goflash.com/partner/oauth/token";
-
+    
     public static CircTrip generateCircTip(String from, String to) {
 
         // Remove Mockdata and return Object for Frontend
@@ -134,7 +134,8 @@ public class CircProvider {
                     nearestReturningPoint = new GpsLocation(vertex.getLatitude(), vertex.getLongitude());
                 }
             }
-       }
+
+        }
         return new ReturningPoint(minDist, nearestReturningPoint);
     }
 
@@ -220,7 +221,7 @@ public class CircProvider {
         return Math.sqrt(distance);
     }
 
-    public static boolean areaContains(ArrayList<Vertex> vertices, GPSLocation test) {
+    public static boolean areaContains(ArrayList<Vertex> vertices, GpsLocation test) {
         // y = long
         int i;
         int j;
