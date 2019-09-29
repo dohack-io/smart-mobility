@@ -17,9 +17,9 @@ export class SearchService {
 
   }
 
-  search(start: string, destination: string, date: Date, travelType: string) {
+  search(start: string, destination: string, dt: string, travelType: string) {
 
-    const data: Request = {
+    const data = {
       from: {
         locationType: 'ADDRESS',
         location: start
@@ -28,9 +28,9 @@ export class SearchService {
         locationType: 'ADDRESS',
         location: destination
       },
-      date,
+      date: dt,
       travelType
-  };
+    };
 
     this.http.post<any>(environment.path + '/trip', data).subscribe((res: TripResult) => {
 
