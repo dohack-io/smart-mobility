@@ -1,4 +1,4 @@
-package io.dohack.smartmobility.model;
+package io.dohack.smartmobility.circ.model;
 
 import java.util.ArrayList;
 
