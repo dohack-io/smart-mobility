@@ -62,7 +62,6 @@ public class CircProvider {
         Journey routeToDestination = OpenStreetMapProvider.getRoute(returningPoint.getGpsLocation(), endCoords.getGpsLocation(), MovementProfile.WALK);
 
 
-        System.out.println("Return: " + returningPoint.getGpsLocation());
         System.out.println("Weg 1 (Distanz): " + routeToVehicle.getDistance());
         System.out.println("Weg 2 (Distanz): " + routeToReturnPoint.getDistance() + " Duration: " +  routeToReturnPoint.getDuration());
         System.out.println("Weg 3 (Distanz): " + routeToDestination.getDistance());
@@ -140,7 +139,6 @@ public class CircProvider {
                         1);
                 if (minDist == -1 || distance < minDist) {
                     minDist = distance;
-                    System.out.println(minDist);
                     nearestReturningPoint = new GPSLocation(vertex.getLatitude(), vertex.getLongitude());
                 }
             }
