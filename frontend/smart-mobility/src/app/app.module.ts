@@ -9,7 +9,7 @@ import {ConnectionComponent} from './connection/connection.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatExpansionModule, MatFormFieldModule} from '@angular/material';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({

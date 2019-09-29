@@ -20,6 +20,6 @@ export class AppComponent {
 
 
   onSearch() {
-
+      this.router.navigateByUrl('/search');
   }
 }
