@@ -1,11 +1,15 @@
 package io.dohack.smartmobility.circ.model;
 
-public class VrrDetails {
-    String busLine;
-    String company;
-    String direction;
-    int duration;
-    String depatureStop;
-    String ArrivalStop;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
+@Data
+@AllArgsConstructor
+public class VrrDetails {
+    private String busLine;
+    private String company;
+    private String direction;
+    private int duration;
+    private String departureStop;
+    private String arrivalStop;
 }

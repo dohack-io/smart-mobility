@@ -1,9 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {Trip} from '../../entities/Trip';
+import {Trip} from '../../entities/vrr/Trip';
 import {faChevronDown, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../environments/environment';
 import {SearchService} from '../service/search.service';
 import {TravelConnection} from '../../entities/travelConnection';
+import {TripCirc} from '../../entities/circ/TripCirc';
+import {Observable, of} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-connection',
@@ -13,6 +16,9 @@ import {TravelConnection} from '../../entities/travelConnection';
 export class ConnectionComponent implements OnInit {
   tripResult: TravelConnection;
   trips: Trip[] = [];
+
+  tripCirc=  new TripCirc();
+
   arrowRight = faChevronRight;
   arrowDown = faChevronDown;
 
@@ -40,11 +46,20 @@ export class ConnectionComponent implements OnInit {
         }
       ];
     } else {
-      this.search.travel.subscribe( res => {
+      this.search.travelVrr.subscribe(res => {
         this.tripResult = res;
         this.trips = res.trips;
-        console.log(res.trips[1]);
       });
+
+      this.search.travelCirc.subscribe((res: TripCirc) => {
+        console.log(res);
+        this.tripCirc.distance = Math.round(res.distance);
+        this.tripCirc.duration = Math.round(res.duration);
+        this.tripCirc.price = res.price;
+        this.tripCirc.start.name = res.start.name.split(',')[0];
+        this.tripCirc.end.name = res.end.name.split(',')[0];
+      });
+
     }
   }
 
@@ -65,4 +80,6 @@ export class ConnectionComponent implements OnInit {
 
     }
   }
+
+
 }

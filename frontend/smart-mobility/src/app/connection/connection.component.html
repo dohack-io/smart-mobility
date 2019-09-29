@@ -31,5 +31,36 @@
         </label>
       </div>
     </div>
+    <div class="panel">
+      <div class="click" (click)="onItem(trip,i)">
+        <fa-icon [icon]="arrowRight" *ngIf="!isSelected || isSelectedIndex !== i"></fa-icon>
+        <fa-icon [icon]="arrowDown" *ngIf="isSelected && isSelectedIndex === i"></fa-icon>
+      </div>
+      <div class="click" (click)="onItem(trip,i)">
+        <label class="duration">
+          {{tripCirc.duration/ 1000}} min
+        </label>
+      </div>
+      <div class="click" (click)="onItem(trip,i)">
+        <label class="distance">
+          {{tripCirc.distance / 1000}} km
+        </label>
+      </div>
+      <div class="click" (click)="onItem(trip,i)">
+        <label class="duration">
+          {{tripCirc.start.name}}
+        </label>
+      </div>
+      <div class="click" (click)="onItem(trip,i)">
+        <label class="network">
+          {{tripCirc.end.name}}
+        </label>
+      </div>
+      <div class="click" (click)="onItem(trip,i)">
+        <label class="price" *ngFor="let fare of trip.fares">
+          {{tripCirc.price | currency:' '}} €
+        </label>
+      </div>
+    </div>
   </div>
 </div>

@@ -2,7 +2,10 @@ package io.dohack.smartmobility.circ;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.dohack.smartmobility.circ.domain.*;
+import io.dohack.smartmobility.circ.domain.BusinessArea;
+import io.dohack.smartmobility.circ.domain.NearestScooterDomain;
+import io.dohack.smartmobility.circ.domain.Vehicle;
+import io.dohack.smartmobility.circ.domain.Vertex;
 import io.dohack.smartmobility.circ.model.*;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
@@ -12,45 +15,33 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
 
 public class CircProvider {
-    final static private String BUSINESS_AREA_URL = "https://node.integrations.goflash.com/partner/areas/business";
-    final static private String NEAREST_AREA_URL = "https://node.integrations.goflash.com/partner/vehicles/nearest";
-    final static private String AUTH_URL = "https://node.integrations.goflash.com/partner/oauth/token";
+    private static final String BUSINESS_AREA_URL = "https://node.integrations.goflash.com/partner/areas/business";
+    private static final String NEAREST_AREA_URL = "https://node.integrations.goflash.com/partner/vehicles/nearest";
+    private static final String AUTH_URL = "https://node.integrations.goflash.com/partner/oauth/token";
 
-/*
-    public CircProvider() {
-
-    }
-*/
     public static CircTrip generateCircTip(String from, String to) {
 
         // Remove Mockdata and return Object for Frontend
         // adesso
         double longitude = 7.5269513432156145;
         double latitude = 51.50435048769515;
-        GPSLocation start = new GPSLocation(latitude, longitude);
+        GpsLocation start = new GpsLocation(latitude, longitude);
 
         // Kampstraße
-        double longitude2 = 7.4620800917897725;
-        double latitude2 = 51.51491967325967;
-        GPSLocation end = new GPSLocation(latitude2, longitude2);
-
-        //String from = "Adessoplatz";
-        //String to = "Kampstrasse,Dortmund";
         Address startCoords = GeoProvider.getCoords(from);
         Address endCoords = GeoProvider.getCoords(to);
 
 
-
         // Get the nearest available scooter
-        ArrayList<Vehicle> vehicles = getNearestScooter(startCoords.getGpsLocation());
+        List<Vehicle> vehicles = getNearestScooter(startCoords.getGpsLocation());
         Vehicle chosenVehicle = vehicles.get(0);
 
         // Calculate distance and durations from start to scooter
-        GPSLocation vehiclePosition = new GPSLocation(chosenVehicle.getLocation().getLatitude(), chosenVehicle.getLocation().getLongitude());
+        GpsLocation vehiclePosition = new GpsLocation(chosenVehicle.getLocation().getLatitude(), chosenVehicle.getLocation().getLongitude());
         Journey routeToVehicle = OpenStreetMapProvider.getRoute(start, vehiclePosition, MovementProfile.WALK);
 
         // find return point for scooter close to desired destination
@@ -65,14 +56,15 @@ public class CircProvider {
 
         System.out.println("Return: " + returningPoint.getGpsLocation());
         System.out.println("Weg 1 (Distanz): " + routeToVehicle.getDistance());
-        System.out.println("Weg 2 (Distanz): " + routeToReturnPoint.getDistance() + " Duration: " +  routeToReturnPoint.getDuration());
+        System.out.println("Weg 2 (Distanz): " + routeToReturnPoint.getDistance() + " Duration: " + routeToReturnPoint.getDuration());
         System.out.println("Weg 3 (Distanz): " + routeToDestination.getDistance());
 
-
+        
         int duration = routeToVehicle.getDuration() + routeToReturnPoint.getDuration() + routeToDestination.getDuration();
         duration = Math.round(duration /60);
+
         double distance = routeToVehicle.getDistance() + routeToReturnPoint.getDistance() + routeToDestination.getDistance();
-        double price = 1 + 0.15 * Math.round(routeToReturnPoint.getDuration()/60);
+        double price = 1 + 0.15 * Math.round(routeToReturnPoint.getDuration() / 60);
 
         CircTrip circTrip = new CircTrip();
         circTrip.setDistance(distance);
@@ -93,9 +85,9 @@ public class CircProvider {
     }
 
 
-    static private String getToken() {
+    private static String getToken() {
         RestTemplate restTemplate = new RestTemplate();
-        MultiValueMap<String,String> parameters = new LinkedMultiValueMap<String,String>();
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.add("client_id", "dortstdt.EK97HTcwyQdB");
         parameters.add("client_secret", "4bdgEVcP76TeUGc4");
         parameters.add("grant_type", "client_credentials");
@@ -103,8 +95,8 @@ public class CircProvider {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-        HttpEntity<MultiValueMap<String,String>> entity =
-                new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
+        HttpEntity<MultiValueMap<String, String>> entity =
+                new HttpEntity<>(parameters, headers);
 
         String tokenString = restTemplate.postForObject(AUTH_URL, entity, String.class);
 
@@ -112,22 +104,19 @@ public class CircProvider {
         try {
 
             JsonNode root = new ObjectMapper().readTree(tokenString);
-            String token = root.path("access_token").asText();
-            return token;
+            return root.path("access_token").asText();
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("JSON convert failed");
             return "";
         }
     }
 
-    static ReturningPoint findNearestReturningPoint(GPSLocation destination) {
+    private static ReturningPoint findNearestReturningPoint(GpsLocation destination) {
         List<BusinessArea> businessAreas = getBusinesAreas(destination);
         double minDist = -1;
-        GPSLocation nearestReturningPoint = new GPSLocation(0,0);
-        Iterator<BusinessArea> businessAreaIterator = businessAreas.iterator();
-        while(businessAreaIterator.hasNext()) {
-            BusinessArea businessArea = businessAreaIterator.next();
+        GpsLocation nearestReturningPoint = new GpsLocation(0, 0);
+        for (BusinessArea businessArea : businessAreas) {
             ArrayList<Vertex> vertices = businessArea.getVertices();
             if (areaContains(vertices, destination)){
                 return new ReturningPoint(0, destination);
@@ -142,15 +131,15 @@ public class CircProvider {
                 if (minDist == -1 || distance < minDist) {
                     minDist = distance;
                     System.out.println(minDist);
-                    nearestReturningPoint = new GPSLocation(vertex.getLatitude(), vertex.getLongitude());
+                    nearestReturningPoint = new GpsLocation(vertex.getLatitude(), vertex.getLongitude());
                 }
             }
        }
         return new ReturningPoint(minDist, nearestReturningPoint);
-        }
+    }
 
 
-    static public ArrayList<Vehicle> getNearestScooter(GPSLocation gpsLocation) {
+    public static List<Vehicle> getNearestScooter(GpsLocation gpsLocation) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = getHttpHeaders();
         HttpEntity<?> entity = new HttpEntity<>(headers);
@@ -165,17 +154,15 @@ public class CircProvider {
                 HttpMethod.GET,
                 entity,
                 NearestScooterDomain.class);
-        NearestScooterDomain nearestScooterDomain =  res.getBody();
-        ArrayList<Vehicle> vehicles = nearestScooterDomain.getVehicles();
-
-        return vehicles;
-
-
+        NearestScooterDomain nearestScooterDomain = res.getBody();
+        if (nearestScooterDomain != null) {
+            return nearestScooterDomain.getVehicles();
+        }
+        return Collections.emptyList();
     }
 
 
-
-    public static List<BusinessArea> getBusinesAreas(GPSLocation gpsLocation) {
+    public static List<BusinessArea> getBusinesAreas(GpsLocation gpsLocation) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = getHttpHeaders();
         HttpEntity<?> entity = new HttpEntity<>(headers);
@@ -189,16 +176,15 @@ public class CircProvider {
                 HttpMethod.GET,
                 entity,
                 BusinessArea[].class);
-        List<BusinessArea> list =  Arrays.asList(ret.getBody());
 
-        return list;
+        return Arrays.asList(ret.getBody());
     }
 
 
     private static HttpHeaders getHttpHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer "+ getToken());
+        headers.set("Authorization", "Bearer " + getToken());
         headers.set("Api-Version", "1.0");
         return headers;
     }
@@ -208,9 +194,10 @@ public class CircProvider {
      * Calculate distance between two points in latitude and longitude taking
      * into account height difference. If you are not interested in height
      * difference pass 0.0. Uses Haversine method as its base.
-     *
+     * <p>
      * lat1, lon1 Start point lat2, lon2 End point el1 Start altitude in meters
      * el2 End altitude in meters
+     *
      * @returns Distance in Meters
      */
     public static double distance(double lat1, double lat2, double lon1,

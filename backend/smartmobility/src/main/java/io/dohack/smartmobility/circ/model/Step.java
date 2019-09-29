@@ -1,22 +1,22 @@
 package io.dohack.smartmobility.circ.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.Date;
 
+@Data
+@AllArgsConstructor
 public class Step {
-    double price;
-    int duration;
-    Date startTime;
-    Date endTime;
-    String type;
-    double arrivalLongitude;
-    double arrivalLatitude;
-    double departureLongitude;
-    double departureLatitude;
-    VrrDetails vrrDetails;
-    CircDetails circDetails;
-
-    public Step () {
-
-    }
-
+    private double price;
+    private int duration;
+    private Date startTime;
+    private Date endTime;
+    private String type;
+    private double arrivalLongitude;
+    private double arrivalLatitude;
+    private double departureLongitude;
+    private double departureLatitude;
+    private VrrDetails vrrDetails;
+    private CircDetails circDetails;
 }

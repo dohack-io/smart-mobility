@@ -1,5 +1,5 @@
-import {Location} from './Location';
-import {Trip} from './Trip';
+import {Location} from './vrr/Location';
+import {Trip} from './vrr/Trip';
 
 export class TravelConnection {
   networkId: string;

@@ -1,8 +1,8 @@
 import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SearchService} from '../service/search.service';
-import {faMapMarkedAlt, faSearch, faSubway} from '@fortawesome/free-solid-svg-icons';
-import {TripResult} from '../../entities/TripResult';
+import {faHospitalSymbol, faMapMarkedAlt, faSearch, faSubway} from '@fortawesome/free-solid-svg-icons';
+import {TripResult} from '../../entities/vrr/TripResult';
 
 @Component({
   selector: 'app-search-page',
@@ -11,8 +11,8 @@ import {TripResult} from '../../entities/TripResult';
 })
 export class SearchPageComponent implements OnInit, OnChanges {
 
-  start = 'Stockholmer Allee 20';
-  destination = 'Goebenstr 1a';
+  start = 'Adessoplatz';
+  destination = 'Hoevelstrasse';
   date: Date = new Date();
   time = '12:12';
   requested = false;
@@ -22,6 +22,7 @@ export class SearchPageComponent implements OnInit, OnChanges {
   faSearch = faSearch;
   faMapMarkedAlt = faMapMarkedAlt;
   faSubway = faSubway;
+  faLogo = faHospitalSymbol;
 
 
   constructor(private router: Router, private search: SearchService, private route: ActivatedRoute) {
@@ -42,7 +43,8 @@ export class SearchPageComponent implements OnInit, OnChanges {
 
   onRequest() {
     this.requested = true;
-    const bool = this.search.search(this.start, this.destination, this.changeTime(this.time).toJSON(), 'DEPARTURE');
+    const boolVrr = this.search.searchVrr(this.start, this.destination, this.changeTime(this.time).toJSON(), 'DEPARTURE');
+    const boolCirc = this.search.searchCirc(this.start, this.destination, this.changeTime(this.time).toJSON(), 'DEPARTURE')
     this.router.navigateByUrl('/search/connection');
 
   }

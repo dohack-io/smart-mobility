@@ -1,7 +1,8 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {TripResult} from '../../entities/TripResult';
+import {TripResult} from '../../entities/vrr/TripResult';
+import {TripCirc} from '../../entities/circ/TripCirc';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,14 @@ import {TripResult} from '../../entities/TripResult';
 export class SearchService {
 
 
-  travel = new EventEmitter<TripResult>();
+  travelVrr = new EventEmitter<TripResult>();
+  travelCirc = new EventEmitter<TripCirc>();
 
   constructor(private http: HttpClient) {
 
   }
 
-  search(start: string, destination: string, dt: string, travelType: string) {
+  searchVrr(start: string, destination: string, dt: string, travelType: string) {
 
     const data = {
       from: {
@@ -30,9 +32,15 @@ export class SearchService {
       travelType
     };
     this.http.post<TripResult>(environment.path + '/trip', data).subscribe((res: TripResult) => {
-      this.travel.emit(res);
+      this.travelVrr.emit(res);
       return true;
     });
+  }
 
+  searchCirc(start: string, destination: string, dt: string, travelType: string) {
+    this.http.get<TripCirc>(environment.path + '/circTrip?start=' + start + '&end=' + destination).subscribe((res: TripCirc) => {
+      this.travelCirc.emit(res);
+      return true;
+    });
   }
 }

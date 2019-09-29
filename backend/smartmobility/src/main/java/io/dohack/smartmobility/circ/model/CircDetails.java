@@ -1,6 +1,11 @@
 package io.dohack.smartmobility.circ.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
 public class CircDetails {
-    int energyLevel;
-    double distance;
+    private int energyLevel;
+    private double distance;
 }
