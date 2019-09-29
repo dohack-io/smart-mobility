@@ -7,12 +7,12 @@
       </div>
       <div class="click" (click)="onItem(trip,i)">
         <label class="abfahrt">
-          {{trip.abfahrt}}
+          {{trip.from}}
         </label>
       </div>
       <div class="click" (click)="onItem(trip,i)">
         <label class="ankunft">
-          {{trip.ankunft}}
+          {{trip.to}}
         </label>
       </div>
       <div class="click" (click)="onItem(trip,i)">
@@ -22,12 +22,12 @@
       </div>
       <div class="click" (click)="onItem(trip,i)">
         <label class="network">
-          {{trip.network}}
+<!--          {{tripResult.network}}-->
         </label>
       </div>
       <div class="click" (click)="onItem(trip,i)">
         <label class="price">
-          {{trip.price | currency:' '}} €
+          {{trip.prices[0] | currency:' '}} €
         </label>
       </div>
     </div>

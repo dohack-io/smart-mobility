@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Time} from '@angular/common';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {SearchService} from '../service/search.service';
 
 @Component({
@@ -10,11 +9,11 @@ import {SearchService} from '../service/search.service';
 })
 export class SearchPageComponent implements OnInit {
 
-  start = '';
-  destination = '';
-  @Input() date: string;
-  @Input() time: string;
-  requested: boolean;
+  start = 'asd';
+  destination = 'asd';
+  date: Date = new Date();
+  time = '12:12';
+  requested = false;
 
   constructor(private router: Router, private search: SearchService) {
   }
@@ -26,8 +25,8 @@ export class SearchPageComponent implements OnInit {
   onSearch() {
     this.requested = true;
 
-    this.search.search(this.start, this.destination, this.changeTime(this.time), 'DEPARTURE');
-    this.router.navigateByUrl('/connection');
+    const req = this.search.search(this.start, this.destination, this.changeTime(this.time), 'DEPARTURE');
+    this.router.navigateByUrl('/search/connection');
   }
 
   changeTime(time: string): Date {

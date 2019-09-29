@@ -3,7 +3,7 @@
     <div class="nav-item logo">
       <!--      Logo      -->
     </div>
-    <div class="nav-item" (click)="onSearch()">
+    <div class="nav-item active" (click)="onSearch()">
       <fa-icon [icon]="faSearch"></fa-icon>
       <div></div>
       <label class="nav-caption">Suche</label>
@@ -23,7 +23,7 @@
 
 
 <div class="content">
-  <app-search-page></app-search-page>
+  <router-outlet></router-outlet>
 </div>
 <div class="footer">
   <div class="icon-list">
