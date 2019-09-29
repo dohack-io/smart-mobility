@@ -25,6 +25,7 @@ repositories {
 dependencies {
     implementation project(':public-transport-enabler')
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.google.code.gson:gson:2.8.4'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

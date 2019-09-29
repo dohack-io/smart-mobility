@@ -6,7 +6,7 @@
 ## Angular ##
 # compiled output
 dist/
-tmp/
+travelType/
 app/**/*.js
 app/**/*.js.map
 
@@ -36,7 +36,7 @@ e2e/*.map
 ### Eclipse ###
 .metadata
 bin/
-*.tmp
+*.travelType
 *.bak
 *.swp
 *~.nib
@@ -197,7 +197,7 @@ modules.xml
 *.ctxt
 
 # Mobile Tools for Java (J2ME)
-.mtj.tmp/
+.mtj.travelType/
 
 # Package Files #
 *.jar
@@ -279,5 +279,26 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+### Gradle ###
+.gradle
+build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
+
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
+
+### Gradle Patch ###
+**/build/
+
+package-lock.json
 
 # End of https://www.gitignore.io/api/java,linux,macos,windows,eclipse,angular,intellij+all
