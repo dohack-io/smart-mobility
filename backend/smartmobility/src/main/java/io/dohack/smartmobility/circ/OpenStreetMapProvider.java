@@ -34,11 +34,7 @@ public class OpenStreetMapProvider {
         int duration = (int)Math.round(openRouteServiceDomain.getFeatures().get(0).getProperties().getSegments().get(0).getDuration());
         Journey journey = new Journey(distance, duration);
 
-
         return journey;
-
-
-
 
     }
 }

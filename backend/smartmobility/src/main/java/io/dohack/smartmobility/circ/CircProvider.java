@@ -3,10 +3,7 @@ package io.dohack.smartmobility.circ;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.dohack.smartmobility.circ.domain.*;
-import io.dohack.smartmobility.circ.model.GPSLocation;
-import io.dohack.smartmobility.circ.model.Journey;
-import io.dohack.smartmobility.circ.model.MovementProfile;
-import io.dohack.smartmobility.circ.model.ReturningPoint;
+import io.dohack.smartmobility.circ.model.*;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -28,7 +25,8 @@ public class CircProvider {
 
     }
 */
-    public void circHandler() {
+    public static CircTrip generateCircTip(String from, String to) {
+
         // Remove Mockdata and return Object for Frontend
         // adesso
         double longitude = 7.5269513432156145;
@@ -40,9 +38,15 @@ public class CircProvider {
         double latitude2 = 51.51491967325967;
         GPSLocation end = new GPSLocation(latitude2, longitude2);
 
+        //String from = "Adessoplatz";
+        //String to = "Kampstrasse,Dortmund";
+        Address startCoords = GeoProvider.getCoords(from);
+        Address endCoords = GeoProvider.getCoords(to);
+
+
 
         // Get the nearest available scooter
-        ArrayList<Vehicle> vehicles = getNearestScooter(start);
+        ArrayList<Vehicle> vehicles = getNearestScooter(startCoords.getGpsLocation());
         Vehicle chosenVehicle = vehicles.get(0);
 
         // Calculate distance and durations from start to scooter
@@ -51,23 +55,40 @@ public class CircProvider {
 
         // find return point for scooter close to desired destination
         // TODO: move returning point around 600 meters closer the destination since the point induces a area not a single point
-        ReturningPoint returningPoint = findNearestReturningPoint(end);
+        ReturningPoint returningPoint = findNearestReturningPoint(endCoords.getGpsLocation());
 
         // Calculate distance and durations from scooter pick-up point to returning point (driven with scooter)
         Journey routeToReturnPoint = OpenStreetMapProvider.getRoute(vehiclePosition, returningPoint.getGpsLocation(), MovementProfile.SCOOTER);
 
         // Calculate distance and durations from returning point (driven with scooter) to desired destination
-        Journey routeToDestination = OpenStreetMapProvider.getRoute(returningPoint.getGpsLocation(), end, MovementProfile.WALK);
+        Journey routeToDestination = OpenStreetMapProvider.getRoute(returningPoint.getGpsLocation(), endCoords.getGpsLocation(), MovementProfile.WALK);
 
 
         System.out.println("Return: " + returningPoint.getGpsLocation());
         System.out.println("Weg 1 (Distanz): " + routeToVehicle.getDistance());
         System.out.println("Weg 2 (Distanz): " + routeToReturnPoint.getDistance() + " Duration: " +  routeToReturnPoint.getDuration());
         System.out.println("Weg 3 (Distanz): " + routeToDestination.getDistance());
+
+
         int duration = routeToVehicle.getDuration() + routeToReturnPoint.getDuration() + routeToDestination.getDuration();
-        System.out.println("Dauer: " + duration);
+        double distance = routeToVehicle.getDistance() + routeToReturnPoint.getDistance() + routeToDestination.getDistance();
         double price = 1 + 0.15 * Math.round(routeToReturnPoint.getDuration()/60);
-        System.out.println("Price:  " + price);
+
+        CircTrip circTrip = new CircTrip();
+        circTrip.setDistance(distance);
+        circTrip.setDuration(duration);
+        circTrip.setPrice(price);
+        circTrip.setWalkToScooterDuration(routeToVehicle.getDuration());
+        circTrip.setWalkToScooterDistance(routeToVehicle.getDistance());
+        circTrip.setScooterDuration(routeToReturnPoint.getDuration());
+        circTrip.setScooterDistance(routeToReturnPoint.getDistance());
+        circTrip.setWalkToDestinationDuration(routeToDestination.getDuration());
+        circTrip.setWalkToDestinationDistance(routeToDestination.getDistance());
+        circTrip.setStart(startCoords);
+        circTrip.setEnd(endCoords);
+        circTrip.setReturningPoint(returningPoint.getGpsLocation());
+
+        return circTrip;
 
     }
 
