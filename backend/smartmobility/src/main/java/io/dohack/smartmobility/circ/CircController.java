@@ -11,8 +11,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class CircController {
 
     @RequestMapping(method=GET, path="/circTrip")
-    public CircTrip greeting(@RequestParam(value="start") String start, @RequestParam(value="end") String end) {
+    public CircTrip circTrip(@RequestParam(value="start") String start, @RequestParam(value="end") String end) {
         return CircProvider.generateCircTip(start, end);
     }
-
 }
