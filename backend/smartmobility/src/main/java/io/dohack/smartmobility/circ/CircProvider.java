@@ -70,6 +70,7 @@ public class CircProvider {
 
 
         int duration = routeToVehicle.getDuration() + routeToReturnPoint.getDuration() + routeToDestination.getDuration();
+        duration = Math.round(duration /60);
         double distance = routeToVehicle.getDistance() + routeToReturnPoint.getDistance() + routeToDestination.getDistance();
         double price = 1 + 0.15 * Math.round(routeToReturnPoint.getDuration()/60);
 
