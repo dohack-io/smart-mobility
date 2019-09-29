@@ -25,14 +25,14 @@ export class SearchPageComponent implements OnInit {
   onSearch() {
     this.requested = true;
 
-    const req = this.search.search(this.start, this.destination, this.changeTime(this.time), 'DEPARTURE');
+    const req = this.search.search(this.start, this.destination, this.changeTime(this.time).toJSON(), 'DEPARTURE');
     this.router.navigateByUrl('/search/connection');
   }
 
   changeTime(time: string): Date {
     const minute = time.split(':');
     const dateS = new Date('09-29-2019').getTime();
-    const sum = dateS +  +minute[0] * 3600000 + +minute[1] * 60000;
+    const sum = dateS + +minute[0] * 3600000 + +minute[1] * 60000;
     return new Date(sum);
   }
 }

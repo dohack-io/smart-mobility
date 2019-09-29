@@ -31,9 +31,12 @@ public class VrrAdapter {
       TravelType travelType,
       TripOptions options) {
     try {
+      if (date == null) {
+        date = new Date();
+      }
       return vrrProvider.queryTrips(from, via, to, date, travelType.type, options);
     } catch (IOException e) {
-      throw new VrrException();
+      throw new VrrException("f", e);
     }
   }
 }
