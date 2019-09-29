@@ -54,7 +54,6 @@ public class CircProvider {
         Journey routeToVehicle = OpenStreetMapProvider.getRoute(start, vehiclePosition, MovementProfile.WALK);
 
         // find return point for scooter close to desired destination
-        // TODO: move returning point around 600 meters closer the destination since the point induces a area not a single point
         ReturningPoint returningPoint = findNearestReturningPoint(endCoords.getGpsLocation());
 
         // Calculate distance and durations from scooter pick-up point to returning point (driven with scooter)
@@ -129,6 +128,9 @@ public class CircProvider {
         while(businessAreaIterator.hasNext()) {
             BusinessArea businessArea = businessAreaIterator.next();
             ArrayList<Vertex> vertices = businessArea.getVertices();
+            if (areaContains(vertices, destination)){
+                return new ReturningPoint(0, destination);
+            }
             for (Vertex vertex : vertices) {
                 double distance = distance(vertex.getLatitude(),
                         destination.getLatitude(),
@@ -142,7 +144,7 @@ public class CircProvider {
                     nearestReturningPoint = new GPSLocation(vertex.getLatitude(), vertex.getLongitude());
                 }
             }
-        }
+       }
         return new ReturningPoint(minDist, nearestReturningPoint);
         }
 
@@ -191,6 +193,7 @@ public class CircProvider {
         return list;
     }
 
+
     private static HttpHeaders getHttpHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -227,6 +230,25 @@ public class CircProvider {
         distance = Math.pow(distance, 2) + Math.pow(height, 2);
 
         return Math.sqrt(distance);
+    }
+
+    public static boolean areaContains(ArrayList<Vertex> vertices, GPSLocation test) {
+        // y = long
+        int i;
+        int j;
+        boolean result = false;
+        for (i = 0, j = vertices.size() - 1; i < vertices.size(); j = i++) {
+            if ((vertices.get(i).getLongitude() > test.getLongitude()) !=
+                    (vertices.get(j).getLongitude() > test.getLongitude()) &&
+                    (test.getLatitude() < (vertices.get(j).getLatitude() -
+                            vertices.get(i).getLatitude()) *
+                            (test.getLongitude() - vertices.get(i).getLongitude()) /
+                            (vertices.get(j).getLongitude()-vertices.get(i).getLongitude()) +
+                            vertices.get(i).getLatitude() )) {
+                result = !result;
+            }
+        }
+        return result;
     }
 
 }
