@@ -1,13 +1,13 @@
 import {Leg} from './Leg';
-import {Price} from './Price';
+import {Fare} from './Fare';
 
 export class Trip {
   from: Location;
   to: Location;
   legs: Leg[];
-  prices: Price[];
+  fares: Fare[];
   numChanges: number;
   duration: number;
-  firstPublic: Date;
-  lastPublicLeg: Date;
+  firstPublicLegTime: Date;
+  lastPublicLegTime: Date;
 }

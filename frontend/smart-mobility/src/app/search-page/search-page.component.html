@@ -1,3 +1,25 @@
+<div class="nav">
+  <div class="nav-list">
+    <div class="nav-item logo">
+      <!--      Logo      -->
+    </div>
+    <div class="nav-item active" (click)="onSearch()">
+      <fa-icon [icon]="faSearch"></fa-icon>
+      <div></div>
+      <label class="nav-caption">Suche</label>
+    </div>
+    <div class="nav-item" (click)="onSearch()">
+      <fa-icon [icon]="faSubway"> </fa-icon>
+      <div></div>
+      <label class="nav-caption">Fahrplan</label>
+    </div>
+    <div class="nav-item" (click)="onSearch()">
+      <fa-icon [icon]="faMapMarkedAlt"></fa-icon>
+      <div></div>
+      <label class="nav-caption">Scooter</label>
+    </div>
+  </div>
+</div>
 <div class="content">
   <div class="left">
     <div class="search-content">
@@ -21,7 +43,7 @@
       </label>
       <div></div>
       <label>
-        <button class="btn btn-primary button" (click)="onSearch()">Verbindung suchen</button>
+        <button class="btn btn-primary button" (click)="onRequest()">Verbindung suchen</button>
       </label>
     </div>
   </div>

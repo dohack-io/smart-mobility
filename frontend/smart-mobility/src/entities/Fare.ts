@@ -1,7 +1,7 @@
-export class Price {
+export class Fare {
   network: string;
   type: string;
-  price: number;
+  fare: number;
   unitName: string;
   unit: string;
 }

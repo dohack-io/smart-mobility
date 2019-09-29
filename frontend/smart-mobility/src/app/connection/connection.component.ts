@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {TripResult} from '../../entities/TripResult';
 import {Trip} from '../../entities/Trip';
 import {faChevronDown, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import {environment} from '../../environments/environment';
+import {SearchService} from '../service/search.service';
+import {TravelConnection} from '../../entities/travelConnection';
 
 @Component({
   selector: 'app-connection',
@@ -10,7 +11,7 @@ import {environment} from '../../environments/environment';
   styleUrls: ['./connection.component.scss']
 })
 export class ConnectionComponent implements OnInit {
-  tripResult: TripResult;
+  tripResult: TravelConnection;
   trips: Trip[] = [];
   arrowRight = faChevronRight;
   arrowDown = faChevronDown;
@@ -20,7 +21,7 @@ export class ConnectionComponent implements OnInit {
 
   selectedRequest: Trip;
 
-  constructor() {
+  constructor(private search: SearchService) {
 
   }
 
@@ -31,15 +32,19 @@ export class ConnectionComponent implements OnInit {
           from: null,
           to: null,
           legs: [],
-          prices: [],
+          fares: [],
           numChanges: 3,
           duration: 45,
-          firstPublic: null,
-          lastPublicLeg: null,
+          firstPublicLegTime: null,
+          lastPublicLegTime: null,
         }
       ];
     } else {
-      this.trips = this.tripResult.trips;
+      this.search.travel.subscribe( res => {
+        this.tripResult = res;
+        this.trips = res.trips;
+        console.log(res.trips[1]);
+      });
     }
   }
 

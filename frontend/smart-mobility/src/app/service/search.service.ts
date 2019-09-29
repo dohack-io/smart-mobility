@@ -1,17 +1,15 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {TripResult} from '../../entities/TripResult';
-import {Trip} from '../../entities/Trip';
-import {TravelConnection} from '../../entities/travelConnection';
-import {Request} from '../../entities/Request';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
 
-  travel: TravelConnection;
+
+  travel = new EventEmitter<TripResult>();
 
   constructor(private http: HttpClient) {
 
@@ -31,13 +29,10 @@ export class SearchService {
       date: dt,
       travelType
     };
-
-    this.http.post<any>(environment.path + '/trip', data).subscribe((res: TripResult) => {
-
-      this.travel.network = res.network;
-      this.travel.from = res.from;
-      this.travel.to = res.to;
-      this.travel.trips = res.trips;
+    this.http.post<TripResult>(environment.path + '/trip', data).subscribe((res: TripResult) => {
+      this.travel.emit(res);
+      return true;
     });
+
   }
 }

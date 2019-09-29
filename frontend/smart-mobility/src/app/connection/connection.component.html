@@ -7,27 +7,27 @@
       </div>
       <div class="click" (click)="onItem(trip,i)">
         <label class="abfahrt">
-          {{trip.from}}
+          {{trip.firstPublicLegTime}}
         </label>
       </div>
       <div class="click" (click)="onItem(trip,i)">
         <label class="ankunft">
-          {{trip.to}}
+          {{trip.lastPublicLegTime}}
         </label>
       </div>
       <div class="click" (click)="onItem(trip,i)">
         <label class="duration">
-          {{trip.duration}}
+          {{trip.duration / 60000}} min
         </label>
       </div>
       <div class="click" (click)="onItem(trip,i)">
         <label class="network">
-<!--          {{tripResult.network}}-->
+          {{tripResult.networkId}}
         </label>
       </div>
       <div class="click" (click)="onItem(trip,i)">
-        <label class="price">
-          {{trip.prices[0] | currency:' '}} €
+        <label class="price" *ngFor="let fare of trip.fares">
+          {{fare.fare | currency:' '}} €
         </label>
       </div>
     </div>

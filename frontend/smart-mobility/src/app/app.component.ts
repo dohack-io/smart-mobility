@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {faMapMarkedAlt, faSearch, faSubway} from '@fortawesome/free-solid-svg-icons';
 import {Router} from '@angular/router';
 
@@ -16,10 +16,5 @@ export class AppComponent {
   faSubway = faSubway;
 
   constructor(private router: Router) {
-  }
-
-
-  onSearch() {
-      this.router.navigateByUrl('/search');
   }
 }

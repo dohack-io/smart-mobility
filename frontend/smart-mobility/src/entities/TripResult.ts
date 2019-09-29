@@ -1,9 +1,8 @@
 import {Trip} from './Trip';
 import {Location} from './Location';
-import {Header} from './Header';
 
 export class TripResult {
-  network: string;
+  networkId: string;
   trips: Trip[];
   from: Location;
   to: Location;
